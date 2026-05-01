@@ -5,6 +5,7 @@ export interface Book {
   cover_id?: number;
   first_publish_year?: number;
   description?: string;
+  edition_count?: number;
 }
 
 const STORAGE_KEY = 'smart_library_favorites';

@@ -6,14 +6,27 @@ import ErrorMessage from '../components/ErrorMessage';
 import './Home.scss';
 
 export function Home() {
-  const [books] = useState<any[]>([]);
+  const [books, setBooks] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
+    const fetchInitialBooks = async () => {
+      try {
+        const response = await fetch('https://openlibrary.org/search.json?q=programming&limit=12');
+        if (!response.ok) {
+          throw new Error('Error de red al cargar los libros');
+        }
+        const data = await response.json();
+        setBooks(data.docs);
+      } catch (err) {
+        setError('No se pudieron cargar los libros populares.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchInitialBooks();
   }, []);
 
   return (
@@ -36,7 +49,7 @@ export function Home() {
 
       <section className="books-section">
         <div className="section-header">
-          <h2>Libros Populares</h2>
+          <h2>Libros Populares: Programming</h2>
         </div>
         
         {isLoading && <Loading isSkeleton={true} />}
@@ -47,12 +60,12 @@ export function Home() {
             {books.map((book, index) => (
               <BookCard 
                 key={index} 
-                id={book.id || String(index)} 
-                title={book.title || "Título de prueba"}
-                author={book.author || "Autor de prueba"}
-                coverId={book.cover_id}
+                id={book.key ? book.key.replace('/works/', '') : String(index)} 
+                title={book.title}
+                author={book.author_name ? book.author_name[0] : "Autor desconocido"}
+                coverId={book.cover_i}
                 year={book.first_publish_year}
-                description={book.description}
+                editionCount={book.edition_count}
               />
             ))}
           </div>
