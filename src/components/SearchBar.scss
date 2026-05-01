@@ -1,0 +1,57 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.search-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+
+.search-input {
+  flex: 1;
+  padding: $space-3 $space-4;
+  border: 1px solid #e0e0e0;
+  border-radius: $radius-sm;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    border-color: $color-accent;
+  }
+}
+
+.search-btn {
+  width: 100%;
+  padding: $space-3 $space-6;
+  background-color: $color-accent;
+  color: #ffffff;
+  border: none;
+  border-radius: $radius-sm;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  @media (min-width: 768px) {
+    width: auto;
+  }
+}
