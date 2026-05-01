@@ -1,57 +1,204 @@
 @use '../styles/variables' as *;
 @use '../styles/mixins' as *;
 
-.search-bar {
-  display: flex;
-  flex-direction: column;
-  gap: $space-4;
+.search-bar-form {
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
 }
 
-.search-inputs {
+.search-bar-wrapper {
   display: flex;
   flex-direction: column;
-  gap: $space-3;
-  width: 100%;
+  background-color: $color-surface;
+  border-radius: $radius-lg;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 2px solid #e5e7eb; 
+  transition: all 0.3s ease;
+  position: relative; 
 
-  @media (min-width: 768px) {
-    flex-direction: row;
+  &:focus-within {
+    border-color: $color-accent;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
   }
 }
 
-.search-input {
-  flex: 1;
-  padding: $space-3 $space-4;
-  border: 1px solid #e0e0e0;
-  border-radius: $radius-sm;
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.2s ease;
+:root.dark-mode .search-bar-wrapper {
+  background-color: $color-dark-surface;
+  border-color: $color-dark-border;
+  box-shadow: $shadow-card-dark;
 
-  &:focus {
+  &:focus-within {
     border-color: $color-accent;
   }
 }
 
-.search-btn {
+.input-group {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: $space-2 $space-4;
+  background-color: transparent;
+}
+
+.search-icon {
+  display: flex;
+  align-items: center;
+  color: $color-muted;
+  margin-right: $space-3;
+}
+
+.search-input {
   width: 100%;
-  padding: $space-3 $space-6;
-  background-color: $color-accent;
-  color: #ffffff;
+  padding: $space-3 0;
   border: none;
-  border-radius: $radius-sm;
-  font-size: 1rem;
+  background-color: transparent;
+  font-size: 1.1rem;
+  color: $color-dark-surface;
+  outline: none;
+
+  &::placeholder {
+    color: $color-muted;
+  }
+}
+
+:root.dark-mode .search-input {
+  color: $color-dark-text-strong;
+
+  &::placeholder {
+    color: $color-dark-muted;
+  }
+}
+
+.input-divider {
+  display: none;
+  width: 1px;
+  background-color: #e5e7eb;
+  margin: $space-2 0;
+}
+
+:root.dark-mode .input-divider {
+  background-color: $color-dark-border;
+}
+
+.custom-dropdown {
+  position: relative;
+  background-color: transparent;
+  width: 100%;
+}
+
+.dropdown-trigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: transparent;
+  border: none;
+  padding: $space-4 $space-6;
+  font-size: 0.95rem;
   font-weight: 600;
+  color: $color-muted;
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  outline: none;
+  text-align: left;
+}
+
+:root.dark-mode .dropdown-trigger {
+  color: $color-dark-muted;
+}
+
+.dropdown-arrow {
+  font-size: 0.6rem;
+  color: $color-muted;
+  transition: transform 0.2s ease;
+  margin-left: $space-3;
+
+  &.open {
+    transform: rotate(180deg);
+  }
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: $color-surface;
+  border: 1px solid $color-border;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 $radius-md $radius-md;
+  z-index: 10;
+  overflow: hidden;
+}
+
+:root.dark-mode .dropdown-menu {
+  background-color: $color-dark-surface-alt;
+  border-color: $color-dark-border;
+}
+
+.dropdown-menu li {
+  padding: $space-3 $space-6;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: $color-dark-surface;
+  transition: background-color 0.2s ease, color 0.2s ease;
 
   &:hover {
-    opacity: 0.9;
+    background-color: rgba(59, 130, 246, 0.05);
   }
 
-  @media (min-width: 768px) {
+  &.active {
+    background-color: $color-accent;
+    color: #ffffff;
+  }
+}
+
+:root.dark-mode .dropdown-menu li {
+  color: $color-dark-text;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  &.active {
+    background-color: $color-accent;
+    color: #ffffff;
+  }
+}
+
+@media (min-width: 768px) {
+  .search-bar-wrapper {
+    flex-direction: row;
+    align-items: stretch;
+    border-radius: 999px;
+  }
+
+  .input-group {
+    padding: 0 $space-4 0 $space-6;
+  }
+
+  .custom-dropdown {
+    flex: 0 0 auto;
     width: auto;
+  }
+
+  .dropdown-trigger {
+    padding: 0 $space-6;
+    height: 100%;
+  }
+
+  .dropdown-menu {
+    border-radius: $radius-md;
+    margin-top: $space-2;
+    width: 220px;
+    right: 0;
+    left: auto;
+  }
+
+  .input-divider {
+    display: block;
   }
 }
