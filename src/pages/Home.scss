@@ -3,7 +3,7 @@
 
 .home-container {
   min-height: calc(100vh - 70px);
-  padding: $space-8 $space-4;
+  padding: $space-10 $space-4;
   background-color: $color-surface-alt;
   transition: background-color 0.3s ease;
 }
@@ -13,47 +13,47 @@
 }
 
 .home-hero {
-  max-width: $detail-width;
+  max-width: 900px;
   margin: 0 auto $space-12 auto;
   padding: $space-12 $space-8;
   text-align: center;
-  @include card-surface($space-12 $space-8, $radius-lg, $shadow-card);
-  transition: background-color 0.3s ease;
+  background-color: transparent;
 }
 
 .subtitle {
-  margin: 0 0 $space-2 0;
+  margin: 0 0 $space-3 0;
   color: $color-accent;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   font-size: 0.85rem;
 }
 
 .home-hero h1 {
-  font-size: 2.5rem;
-  margin: 0 0 $space-4 0;
-  color: $color-dark-surface;
-  transition: color 0.3s ease;
-  line-height: 1.2;
-}
-
-.description {
-  font-size: 1.1rem;
-  color: $color-muted;
-  margin: 0 auto $space-8 auto;
-  max-width: 600px;
-  line-height: $line-height-copy;
-  transition: color 0.3s ease;
-}
-
-:root.dark-mode .home-hero {
-  background-color: $color-dark-surface;
-  box-shadow: $shadow-card-dark;
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin: 0 0 $space-6 0;
+  line-height: 1.1;
+  background: $color-dark-surface;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 :root.dark-mode .home-hero h1 {
-  color: $color-dark-text-strong;
+  background: linear-gradient(135deg, $color-dark-text-strong, #60a5fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.description {
+  font-size: 1.15rem;
+  color: $color-muted;
+  margin: 0 auto $space-8 auto;
+  max-width: 650px;
+  line-height: $line-height-relaxed;
+  transition: color 0.3s ease;
 }
 
 :root.dark-mode .description {
@@ -69,39 +69,47 @@
 
 .action-buttons .btn-primary,
 .action-buttons .btn-secondary {
-  @include button-base($space-3, $space-6, $radius-md);
+  @include button-base($space-4, $space-8, $radius-pill);
   font-weight: 600;
+  font-size: 1.05rem;
   text-decoration: none;
 }
 
 .action-buttons .btn-primary {
   background-color: $color-accent;
-  color: $color-surface;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
 }
 
 .action-buttons .btn-primary:hover {
   background-color: $color-accent-dark;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
 }
 
 .action-buttons .btn-secondary {
-  background-color: $color-border;
+  background-color: $color-surface;
   color: $color-dark-surface;
+  border: 1px solid $color-border;
+  box-shadow: $shadow-card;
 }
 
 .action-buttons .btn-secondary:hover {
-  background-color: #d1d5db;
+  background-color: $color-surface-alt;
   transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
 }
 
 :root.dark-mode .action-buttons .btn-secondary {
-  background-color: $color-dark-surface-alt;
+  background-color: $color-dark-surface;
   color: $color-dark-text-strong;
+  border-color: $color-dark-border;
+  box-shadow: $shadow-card-dark;
 }
 
 :root.dark-mode .action-buttons .btn-secondary:hover {
-  background-color: #4b5563;
+  background-color: $color-dark-surface-alt;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
 .books-section {
@@ -111,14 +119,23 @@
 
 .section-header {
   margin-bottom: $space-8;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid $color-border;
+  padding-bottom: $space-4;
 }
 
 .section-header h2 {
-  font-size: 2rem;
+  font-size: 1.75rem;
+  font-weight: 700;
   margin: 0;
   color: $color-dark-surface;
   transition: color 0.3s ease;
+}
+
+:root.dark-mode .section-header {
+  border-bottom-color: $color-dark-border;
 }
 
 :root.dark-mode .section-header h2 {
@@ -133,16 +150,16 @@
 
 @media (max-width: 768px) {
   .home-container {
-    padding: $space-4 $space-2;
+    padding: $space-6 $space-4;
   }
 
   .home-hero {
-    padding: $space-8 $space-4;
+    padding: $space-6 0;
     margin-bottom: $space-8;
   }
 
   .home-hero h1 {
-    font-size: 2rem;
+    font-size: 2.25rem;
   }
 
   .description {
@@ -150,8 +167,14 @@
     margin-bottom: $space-6;
   }
 
+  .action-buttons .btn-primary,
+  .action-buttons .btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+
   .section-header h2 {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
 
   .books-grid {

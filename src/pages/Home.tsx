@@ -32,21 +32,21 @@ export function Home() {
         <p className="subtitle">Biblioteca Inteligente</p>
         <h1>Encuentra libros y guarda tus favoritos</h1>
         <p className="description">
-          Explora libros populares o utiliza nuestra búsqueda avanzada para encontrar exactamente lo que necesitas en la API de Open Library.
+          Si buscas otros géneros o autores, utiliza nuestro buscador avanzado para explorar millones de títulos.
         </p>
         <div className="action-buttons">
           <Link to="/buscar" className="btn-primary">
-            Ir a buscar
+            Ir al buscador
           </Link>
           <Link to="/favoritos" className="btn-secondary">
-            Ver favoritos
+            Ver mis favoritos
           </Link>
         </div>
       </section>
 
       <section className="books-section">
         <div className="section-header">
-          <h2>Libros Populares: Programming</h2>
+          <h2>Colección Inicial: Programación</h2>
         </div>
         
         {isLoading && <Loading isSkeleton={true} />}
