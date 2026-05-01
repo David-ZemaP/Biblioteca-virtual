@@ -1,0 +1,110 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+:root {
+  --text: #{$color-text};
+  --text-h: #{$color-text-strong};
+  --bg: #{$color-surface};
+  --border: #{$color-border};
+  --code-bg: #{$color-code-bg};
+  --accent: #{$color-accent};
+  --accent-bg: rgba(170, 59, 255, 0.1);
+  --accent-border: rgba(170, 59, 255, 0.5);
+  --social-bg: rgba(244, 243, 236, 0.5);
+  --shadow: rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+
+  --sans: #{$font-sans};
+  --heading: #{$font-heading};
+  --mono: #{$font-mono};
+  font: #{$font-size-root}/#{$line-height-root} var(--sans);
+  letter-spacing: $letter-spacing-root;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: $font-size-root-mobile;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #{$color-dark-muted};
+    --text-h: #{$color-dark-text-strong};
+    --bg: #16171d;
+    --border: #{$color-dark-border};
+    --code-bg: #1f2028;
+    --accent: #c084fc;
+    --accent-bg: rgba(192, 132, 252, 0.15);
+    --accent-border: rgba(192, 132, 252, 0.5);
+    --social-bg: rgba(47, 48, 58, 0.5);
+    --shadow: rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  }
+
+  #social .button-icon {
+    filter: invert(1) brightness(2);
+  }
+}
+
+#root {
+  width: $container-width;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  border-inline: 1px solid var(--border);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+h1,
+h2 {
+  font-family: var(--heading);
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+h1 {
+  font-size: $font-size-h1;
+  letter-spacing: $letter-spacing-h1;
+  margin: $space-8 0;
+  @media (max-width: 1024px) {
+    font-size: $font-size-h1-mobile;
+    margin: $space-5 0;
+  }
+}
+h2 {
+  font-size: $font-size-h2;
+  line-height: $line-height-h2;
+  letter-spacing: $letter-spacing-h2;
+  margin: 0 0 $space-2;
+  @media (max-width: 1024px) {
+    font-size: $font-size-h2-mobile;
+  }
+}
+p {
+  margin: 0;
+}
+
+code,
+.counter {
+  font-family: var(--mono);
+  display: inline-flex;
+  border-radius: $radius-sm;
+  color: var(--text-h);
+}
+
+code {
+  font-size: 15px;
+  line-height: 135%;
+  padding: $space-1 $space-2;
+  background: var(--code-bg);
+}
