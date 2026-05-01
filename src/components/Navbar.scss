@@ -1,0 +1,192 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.navbar {
+  background-color: $color-surface;
+  box-shadow: $shadow-card;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+:root.dark-mode .navbar {
+  background-color: $color-dark-surface;
+  box-shadow: $shadow-card-dark;
+}
+
+.navbar-container {
+  max-width: $page-width;
+  margin: 0 auto;
+  padding: $space-4 $space-6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand {
+  flex-shrink: 0;
+}
+
+.navbar-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $color-dark-surface;
+  transition: color 0.3s ease;
+}
+
+:root.dark-mode .navbar-title {
+  color: $color-dark-text-strong;
+}
+
+.navbar-menu {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  flex: 1;
+  margin: 0 2rem;
+  justify-content: center;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: $color-muted;
+  font-weight: 500;
+  padding: $space-2 $space-3;
+  border-radius: $radius-sm;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  color: $color-accent;
+  background-color: #f0f4ff;
+}
+
+.nav-link.active {
+  color: $color-accent;
+  border-bottom: 2px solid $color-accent;
+}
+
+:root.dark-mode .nav-link {
+  color: $color-dark-text;
+}
+
+:root.dark-mode .nav-link:hover {
+  color: #60a5fa;
+  background-color: $color-dark-surface-alt;
+}
+
+:root.dark-mode .nav-link.active {
+  color: #60a5fa;
+  border-bottom-color: #60a5fa;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: $space-2;
+  border-radius: $radius-sm;
+  transition: background-color 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background-color: #f0f4ff;
+}
+
+:root.dark-mode .theme-toggle:hover {
+  background-color: $color-dark-surface-alt;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: $space-2;
+  gap: 0.4rem;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background-color: $color-dark-surface;
+  border-radius: $radius-sm;
+  transition: all 0.3s ease;
+}
+
+:root.dark-mode .hamburger span {
+  background-color: $color-dark-text-strong;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(8px, -8px);
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .navbar-container {
+    padding: $space-4 $space-4;
+  }
+
+  .navbar-title {
+    font-size: 1.25rem;
+  }
+
+  .navbar-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: $color-surface;
+    flex-direction: column;
+    gap: $space-2;
+    margin: 0;
+    padding: $space-4 $space-6;
+    justify-content: flex-start;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    box-shadow: $shadow-card;
+  }
+
+  :root.dark-mode .navbar-menu {
+    background-color: $color-dark-surface;
+  }
+
+  .navbar-menu.active {
+    max-height: 300px;
+  }
+
+  .nav-link {
+    width: 100%;
+    padding: $space-3 $space-2;
+    border-bottom: none;
+    text-align: left;
+  }
+
+  .nav-link.active {
+    border-left: 3px solid $color-accent;
+    padding-left: calc(#{$space-2} - 3px);
+    background-color: #f0f4ff;
+  }
+
+  :root.dark-mode .nav-link.active {
+    background-color: #374151;
+  }
+}
