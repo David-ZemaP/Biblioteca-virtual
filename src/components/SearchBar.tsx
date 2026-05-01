@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './SearchBar.scss';
 
 export interface SearchParams {
   query: string;
@@ -22,25 +23,30 @@ export function SearchBar({ onSearch }: SearchBarProps) {
 
   return (
     <form className="search-bar" onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Tema o palabra clave..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Título del libro..."
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Autor..."
-        value={author}
-        onChange={(e) => setAuthor(e.target.value)}
-      />
-      <button type="submit">Buscar</button>
+      <div className="search-inputs">
+        <input
+          className="search-input"
+          type="text"
+          placeholder="Tema o palabra clave..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        <input
+          className="search-input"
+          type="text"
+          placeholder="Título del libro..."
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <input
+          className="search-input"
+          type="text"
+          placeholder="Autor..."
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
+        />
+      </div>
+      <button className="search-btn" type="submit">Buscar</button>
     </form>
   );
 }
