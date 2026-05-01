@@ -1,0 +1,185 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.book-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.book-card {
+  display: flex;
+  flex-direction: column;
+  background-color: $color-surface;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-card;
+  transition: all 0.3s ease;
+  height: 100%;
+
+  @include responsive($breakpoint-md) {
+    box-shadow: $shadow-card;
+  }
+}
+
+:root.dark-mode .book-card {
+  background-color: $color-dark-surface;
+  box-shadow: $shadow-card-dark;
+}
+
+.book-card:hover {
+  transform: translateY(-8px);
+  box-shadow: $shadow-hover;
+}
+
+:root.dark-mode .book-card:hover {
+  box-shadow: $shadow-hover-dark;
+}
+
+.book-card-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background-color: $color-surface-alt;
+}
+
+:root.dark-mode .book-card-image {
+  background-color: $color-dark-surface-alt;
+}
+
+.book-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.book-card:hover .book-card-image img {
+  transform: scale(1.05);
+}
+
+.book-card-placeholder {
+  width: 100%;
+  height: 100%;
+  @include flex-center;
+  font-size: 3rem;
+  color: #d1d5db;
+}
+
+:root.dark-mode .book-card-placeholder {
+  color: $color-dark-muted;
+}
+
+.book-card-favorite {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  background-color: color-mix(in srgb, $color-surface 90%, transparent);
+  border: none;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.25rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.book-card-favorite:hover {
+  background-color: $color-surface;
+  transform: scale(1.1);
+}
+
+.book-card-favorite.active {
+  background-color: $color-danger-soft;
+}
+
+:root.dark-mode .book-card-favorite {
+  background-color: color-mix(in srgb, $color-dark-surface 90%, transparent);
+}
+
+:root.dark-mode .book-card-favorite:hover {
+  background-color: $color-dark-surface;
+}
+
+:root.dark-mode .book-card-favorite.active {
+  background-color: #7f1d1d;
+}
+
+.book-card-content {
+  padding: $space-4;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+}
+
+.book-card-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: $color-dark-surface;
+  line-height: 1.3;
+  transition: color 0.3s ease;
+}
+
+:root.dark-mode .book-card-title {
+  color: $color-dark-text-strong;
+}
+
+.book-card-author {
+  margin: 0;
+  font-size: 0.85rem;
+  color: $color-muted;
+  transition: color 0.3s ease;
+}
+
+:root.dark-mode .book-card-author {
+  color: $color-dark-muted;
+}
+
+.book-card-year {
+  margin: 0;
+  font-size: 0.8rem;
+  color: $color-dark-muted;
+  transition: color 0.3s ease;
+}
+
+:root.dark-mode .book-card-year {
+  color: $color-muted;
+}
+
+.book-card-description {
+  margin: $space-2 0 0 0;
+  font-size: 0.75rem;
+  color: $color-dark-muted;
+  line-height: 1.2;
+  transition: color 0.3s ease;
+  flex: 1;
+}
+
+:root.dark-mode .book-card-description {
+  color: $color-muted;
+}
+
+@media (max-width: 480px) {
+  .book-card-content {
+    padding: $space-3;
+  }
+
+  .book-card-title {
+    font-size: 0.9rem;
+  }
+
+  .book-card-favorite {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+}
