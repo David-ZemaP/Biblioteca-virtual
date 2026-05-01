@@ -1,0 +1,53 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.filter-panel {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  background: $color-surface;
+  padding: $space-4;
+  border-radius: $radius-lg;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 300px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.filter-input,
+.filter-select {
+  width: 100%;
+  padding: $space-3;
+  border: 1px solid #e0e0e0;
+  border-radius: $radius-sm;
+  font-size: 0.95rem;
+  outline: none;
+  background-color: #ffffff;
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    border-color: $color-accent;
+  }
+}
+
+.filter-btn {
+  width: 100%;
+  padding: $space-3;
+  background-color: #111827;
+  color: #ffffff;
+  border: none;
+  border-radius: $radius-sm;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #374151;
+  }
+}
