@@ -4,6 +4,7 @@ import { FilterPanel, type FilterParams } from '../components/FilterPanel';
 import BookCard from '../components/BookCard';
 import Loading from '../components/Loading';
 import ErrorMessage from '../components/ErrorMessage';
+import { searchBooks } from '../services/openLibraryService';
 import './Search.scss';
 
 export function Search() {
@@ -21,24 +22,14 @@ export function Search() {
 
   const handleSearch = async (params: SearchParams) => {
     setHasSearched(true);
-    let url = 'https://openlibrary.org/search.json?';
-    const queryParts = [];
-
-    if (params.query) queryParts.push(`q=${encodeURIComponent(params.query)}`);
-    if (params.title) queryParts.push(`title=${encodeURIComponent(params.title)}`);
-    if (params.author) queryParts.push(`author=${encodeURIComponent(params.author)}`);
-
-    if (queryParts.length === 0) return;
-
-    url += queryParts.join('&') + '&limit=40';
+    
+    if (!params.query && !params.title && !params.author) return;
 
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error('Error al realizar la búsqueda');
-      const data = await response.json();
+      const data = await searchBooks(params);
       setBooks(data.docs || []);
     } catch (err) {
       setError('Ocurrió un error al buscar los libros.');

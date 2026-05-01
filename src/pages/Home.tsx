@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import BookCard from '../components/BookCard';
 import Loading from '../components/Loading';
 import ErrorMessage from '../components/ErrorMessage';
+import { getPopularBooks } from '../services/openLibraryService';
 import './Home.scss';
 
 export function Home() {
@@ -13,11 +14,7 @@ export function Home() {
   useEffect(() => {
     const fetchInitialBooks = async () => {
       try {
-        const response = await fetch('https://openlibrary.org/search.json?q=programming&limit=12');
-        if (!response.ok) {
-          throw new Error('Error de red al cargar los libros');
-        }
-        const data = await response.json();
+        const data = await getPopularBooks();
         setBooks(data.docs);
       } catch (err) {
         setError('No se pudieron cargar los libros populares.');
