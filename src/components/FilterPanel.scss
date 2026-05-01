@@ -4,50 +4,215 @@
 .filter-panel {
   display: flex;
   flex-direction: column;
-  gap: $space-4;
-  background: $color-surface;
-  padding: $space-4;
+  background: #ffffff;
   border-radius: $radius-lg;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 2px solid #e5e7eb;
   width: 100%;
-  max-width: 300px;
-}
+  transition: all 0.3s ease;
 
-.filter-group {
-  display: flex;
-  flex-direction: column;
-  gap: $space-3;
-}
+  .filter-header {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    padding: $space-5 $space-6;
+    border-bottom: 1px solid #e5e7eb;
 
-.filter-input,
-.filter-select {
-  width: 100%;
-  padding: $space-3;
-  border: 1px solid #e0e0e0;
-  border-radius: $radius-sm;
-  font-size: 0.95rem;
-  outline: none;
-  background-color: #ffffff;
-  transition: border-color 0.2s ease;
+    h2 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #111827;
+    }
 
-  &:focus {
-    border-color: $color-accent;
+    svg {
+      color: #4b5563;
+    }
+  }
+
+  .filter-content {
+    display: flex;
+    flex-direction: column;
+    gap: $space-5;
+    padding: $space-6;
+  }
+
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+
+    label {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #4b5563;
+    }
+  }
+
+  /* AISLAMOS EL DROPDOWN SOLO PARA EL FILTER PANEL */
+  .custom-dropdown {
+    position: relative;
+    width: 100%;
+  }
+
+  .dropdown-trigger {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $space-3 $space-4;
+    border: 1px solid #e5e7eb;
+    border-radius: $radius-md;
+    font-size: 0.95rem;
+    font-weight: 400;
+    background-color: #f9fafb;
+    color: #111827;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease;
+
+    &:focus, &:hover {
+      border-color: $color-accent;
+      background-color: #ffffff;
+    }
+  }
+
+  .dropdown-value {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .dropdown-arrow {
+    font-size: 0.6rem;
+    color: #9ca3af;
+    transition: transform 0.2s ease;
+    margin-left: $space-3;
+    flex-shrink: 0;
+
+    &.open {
+      transform: rotate(180deg);
+    }
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border-radius: $radius-md;
+    z-index: 20;
+    max-height: 220px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background-color: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    li {
+      padding: $space-3 $space-4;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: #111827;
+      transition: background-color 0.2s ease, color 0.2s ease;
+
+      &:hover {
+        background-color: rgba(59, 130, 246, 0.05);
+      }
+
+      &.active {
+        background-color: $color-accent;
+        color: #ffffff;
+      }
+    }
+  }
+
+  .filter-btn {
+    margin: 0 $space-6 $space-6 $space-6;
+    padding: $space-3;
+    background-color: $color-accent;
+    color: #ffffff;
+    border: none;
+    border-radius: $radius-md;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+
+    &:hover {
+      background-color: $color-accent-dark;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
   }
 }
 
-.filter-btn {
-  width: 100%;
-  padding: $space-3;
-  background-color: #111827;
-  color: #ffffff;
-  border: none;
-  border-radius: $radius-sm;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+/* AISLAMOS EL MODO OSCURO SOLO PARA EL FILTER PANEL */
+:root.dark-mode .filter-panel {
+  background-color: $color-dark-surface;
+  border-color: $color-dark-border;
+  box-shadow: $shadow-card-dark;
 
-  &:hover {
-    background-color: #374151;
+  .filter-header {
+    border-bottom-color: $color-dark-border;
+
+    h2 {
+      color: $color-dark-text-strong;
+    }
+
+    svg {
+      color: $color-dark-muted;
+    }
+  }
+
+  .filter-group label {
+    color: $color-dark-text;
+  }
+
+  .dropdown-trigger {
+    background-color: $color-dark-surface-alt;
+    border-color: $color-dark-border;
+    color: $color-dark-text-strong;
+
+    &:focus, &:hover {
+      border-color: $color-accent;
+      background-color: $color-dark-bg;
+    }
+  }
+
+  .dropdown-menu {
+    background-color: $color-dark-surface-alt;
+    border-color: $color-dark-border;
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #4b5563;
+    }
+
+    li {
+      color: $color-dark-text;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+
+      &.active {
+        background-color: $color-accent;
+        color: #ffffff;
+      }
+    }
   }
 }
