@@ -1,5 +1,11 @@
 @use 'styles/variables' as *;
 @use 'styles/mixins' as *;
+@use 'components/BookCard' as *;
+@use 'components/ErrorMessage' as *;  
+@use 'components/Loading' as *;
+@use 'pages/About' as *;
+@use 'pages/Favorites' as *;
+@use 'pages/BookDetail' as *;
 
 :root {
   --text: #{$color-text};
