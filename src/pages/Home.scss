@@ -1,0 +1,161 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.home-container {
+  min-height: calc(100vh - 70px);
+  padding: $space-8 $space-4;
+  background-color: $color-surface-alt;
+  transition: background-color 0.3s ease;
+}
+
+:root.dark-mode .home-container {
+  background-color: $color-dark-bg;
+}
+
+.home-hero {
+  max-width: $detail-width;
+  margin: 0 auto $space-12 auto;
+  padding: $space-12 $space-8;
+  text-align: center;
+  @include card-surface($space-12 $space-8, $radius-lg, $shadow-card);
+  transition: background-color 0.3s ease;
+}
+
+.subtitle {
+  margin: 0 0 $space-2 0;
+  color: $color-accent;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.85rem;
+}
+
+.home-hero h1 {
+  font-size: 2.5rem;
+  margin: 0 0 $space-4 0;
+  color: $color-dark-surface;
+  transition: color 0.3s ease;
+  line-height: 1.2;
+}
+
+.description {
+  font-size: 1.1rem;
+  color: $color-muted;
+  margin: 0 auto $space-8 auto;
+  max-width: 600px;
+  line-height: $line-height-copy;
+  transition: color 0.3s ease;
+}
+
+:root.dark-mode .home-hero {
+  background-color: $color-dark-surface;
+  box-shadow: $shadow-card-dark;
+}
+
+:root.dark-mode .home-hero h1 {
+  color: $color-dark-text-strong;
+}
+
+:root.dark-mode .description {
+  color: $color-dark-muted;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: $space-4;
+  flex-wrap: wrap;
+}
+
+.action-buttons .btn-primary,
+.action-buttons .btn-secondary {
+  @include button-base($space-3, $space-6, $radius-md);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.action-buttons .btn-primary {
+  background-color: $color-accent;
+  color: $color-surface;
+}
+
+.action-buttons .btn-primary:hover {
+  background-color: $color-accent-dark;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.action-buttons .btn-secondary {
+  background-color: $color-border;
+  color: $color-dark-surface;
+}
+
+.action-buttons .btn-secondary:hover {
+  background-color: #d1d5db;
+  transform: translateY(-2px);
+}
+
+:root.dark-mode .action-buttons .btn-secondary {
+  background-color: $color-dark-surface-alt;
+  color: $color-dark-text-strong;
+}
+
+:root.dark-mode .action-buttons .btn-secondary:hover {
+  background-color: #4b5563;
+}
+
+.books-section {
+  max-width: $page-width;
+  margin: 0 auto;
+}
+
+.section-header {
+  margin-bottom: $space-8;
+  text-align: center;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  margin: 0;
+  color: $color-dark-surface;
+  transition: color 0.3s ease;
+}
+
+:root.dark-mode .section-header h2 {
+  color: $color-dark-text-strong;
+}
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax($grid-min-card, 1fr));
+  gap: $space-8;
+}
+
+@media (max-width: 768px) {
+  .home-container {
+    padding: $space-4 $space-2;
+  }
+
+  .home-hero {
+    padding: $space-8 $space-4;
+    margin-bottom: $space-8;
+  }
+
+  .home-hero h1 {
+    font-size: 2rem;
+  }
+
+  .description {
+    font-size: 1rem;
+    margin-bottom: $space-6;
+  }
+
+  .section-header h2 {
+    font-size: 1.75rem;
+  }
+
+  .books-grid {
+    grid-template-columns: repeat(auto-fill, minmax($grid-min-card-mobile, 1fr));
+    gap: $space-4;
+  }
+}
