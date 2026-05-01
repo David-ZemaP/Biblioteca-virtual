@@ -209,16 +209,25 @@ input:checked + .slider:before {
   .hamburger {
     display: flex;
     order: 3;
+    flex-shrink: 0;
+  }
+
+  .navbar-title {
+    font-size: 1.1rem;
+    line-height: 1.1;
+    width: min-content;
   }
 
   .theme-switch-wrapper {
     order: 2; 
-    margin-right: auto;
-    margin-left: $space-4;
+    margin-left: auto;
+    margin-right: $space-3;
+    transform: scale(0.85);
+    transform-origin: right center;
   }
 
   .navbar-container {
-    padding: $space-4;
+    padding: $space-3 $space-4;
   }
 
   .navbar-menu {
