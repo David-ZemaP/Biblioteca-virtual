@@ -3,20 +3,22 @@
 
 .navbar {
   background-color: $color-surface;
-  box-shadow: $shadow-card;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   position: sticky;
   top: 0;
   z-index: 100;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 :root.dark-mode .navbar {
   background-color: $color-dark-surface;
+  border-bottom-color: $color-dark-border;
   box-shadow: $shadow-card-dark;
 }
 
 .navbar-container {
-  max-width: $page-width;
+  max-width: 1200px;
   margin: 0 auto;
   padding: $space-4 $space-6;
   display: flex;
@@ -30,10 +32,10 @@
 
 .navbar-title {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  color: $color-dark-surface;
-  transition: color 0.3s ease;
+  color: #111827;
+  letter-spacing: -0.5px;
 }
 
 :root.dark-mode .navbar-title {
@@ -42,63 +44,130 @@
 
 .navbar-menu {
   display: flex;
-  gap: 2rem;
+  gap: $space-6;
   align-items: center;
   flex: 1;
-  margin: 0 2rem;
+  margin: 0 $space-8;
   justify-content: center;
 }
 
 .nav-link {
   text-decoration: none;
-  color: $color-muted;
-  font-weight: 500;
-  padding: $space-2 $space-3;
-  border-radius: $radius-sm;
-  transition: all 0.3s ease;
+  color: #6b7280;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: $space-2 0;
+  position: relative;
+  transition: color 0.2s ease;
   white-space: nowrap;
-}
 
-.nav-link:hover {
-  color: $color-accent;
-  background-color: #f0f4ff;
-}
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: $color-accent;
+    transition: width 0.3s ease;
+    border-radius: 2px;
+  }
 
-.nav-link.active {
-  color: $color-accent;
-  border-bottom: 2px solid $color-accent;
+  &:hover {
+    color: $color-accent;
+  }
+
+  &.active {
+    color: $color-accent;
+    
+    &::after {
+      width: 100%;
+    }
+  }
 }
 
 :root.dark-mode .nav-link {
-  color: $color-dark-text;
+  color: $color-dark-muted;
+
+  &:hover {
+    color: #60a5fa;
+  }
+
+  &.active {
+    color: #60a5fa;
+    
+    &::after {
+      background-color: #60a5fa;
+    }
+  }
 }
 
-:root.dark-mode .nav-link:hover {
-  color: #60a5fa;
-  background-color: $color-dark-surface-alt;
+.theme-switch-wrapper {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  flex-shrink: 0;
 }
 
-:root.dark-mode .nav-link.active {
-  color: #60a5fa;
-  border-bottom-color: #60a5fa;
+.theme-icon {
+  color: #9ca3af;
+  transition: color 0.3s ease;
 }
 
-.theme-toggle {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
+.theme-icon.sun {
+  color: #f59e0b; 
+}
+
+:root.dark-mode .theme-icon.sun {
+  color: #4b5563; 
+}
+
+:root.dark-mode .theme-icon.moon {
+  color: #60a5fa; 
+}
+
+.theme-switch {
+  display: inline-block;
+  height: 24px;
+  position: relative;
+  width: 46px;
+}
+
+.theme-switch input {
+  display: none;
+}
+
+.slider {
+  background-color: #d1d5db;
+  bottom: 0;
   cursor: pointer;
-  padding: $space-2;
-  border-radius: $radius-sm;
-  transition: background-color 0.3s ease;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: .4s;
+  border-radius: 24px;
 }
 
-.theme-toggle:hover {
-  background-color: #f0f4ff;
+.slider:before {
+  background-color: #ffffff;
+  bottom: 3px;
+  content: "";
+  height: 18px;
+  left: 3px;
+  position: absolute;
+  transition: .4s;
+  width: 18px;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-:root.dark-mode .theme-toggle:hover {
-  background-color: $color-dark-surface-alt;
+input:checked + .slider {
+  background-color: $color-accent;
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px);
 }
 
 .hamburger {
@@ -108,14 +177,15 @@
   border: none;
   cursor: pointer;
   padding: $space-2;
-  gap: 0.4rem;
+  gap: 5px;
+  z-index: 101; 
 }
 
 .hamburger span {
-  width: 25px;
-  height: 3px;
-  background-color: $color-dark-surface;
-  border-radius: $radius-sm;
+  width: 24px;
+  height: 2px;
+  background-color: #111827;
+  border-radius: 2px;
   transition: all 0.3s ease;
 }
 
@@ -124,7 +194,7 @@
 }
 
 .hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(8px, 8px);
+  transform: rotate(45deg) translate(5px, 5px);
 }
 
 .hamburger.active span:nth-child(2) {
@@ -132,20 +202,23 @@
 }
 
 .hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(8px, -8px);
+  transform: rotate(-45deg) translate(5px, -5px);
 }
 
 @media (max-width: 768px) {
   .hamburger {
     display: flex;
+    order: 3;
+  }
+
+  .theme-switch-wrapper {
+    order: 2; 
+    margin-right: auto;
+    margin-left: $space-4;
   }
 
   .navbar-container {
-    padding: $space-4 $space-4;
-  }
-
-  .navbar-title {
-    font-size: 1.25rem;
+    padding: $space-4;
   }
 
   .navbar-menu {
@@ -153,40 +226,58 @@
     top: 100%;
     left: 0;
     right: 0;
-    background-color: $color-surface;
+    background-color: #ffffff;
     flex-direction: column;
-    gap: $space-2;
+    gap: 0;
     margin: 0;
-    padding: $space-4 $space-6;
+    padding: 0;
     justify-content: flex-start;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
-    box-shadow: $shadow-card;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid #e5e7eb;
   }
 
   :root.dark-mode .navbar-menu {
     background-color: $color-dark-surface;
+    border-top-color: $color-dark-border;
   }
 
   .navbar-menu.active {
     max-height: 300px;
+    padding: $space-2 0;
   }
 
   .nav-link {
     width: 100%;
-    padding: $space-3 $space-2;
-    border-bottom: none;
+    padding: $space-4 $space-6;
+    border-bottom: 1px solid #f3f4f6;
     text-align: left;
+    
+    &::after {
+      display: none; 
+    }
+  }
+
+  :root.dark-mode .nav-link {
+    border-bottom-color: $color-dark-border;
+  }
+
+  .nav-link:last-child {
+    border-bottom: none;
   }
 
   .nav-link.active {
-    border-left: 3px solid $color-accent;
-    padding-left: calc(#{$space-2} - 3px);
-    background-color: #f0f4ff;
+    background-color: #f9fafb;
+    color: $color-accent;
+    border-left: 4px solid $color-accent;
+    padding-left: calc(#{$space-6} - 4px);
   }
 
   :root.dark-mode .nav-link.active {
-    background-color: #374151;
+    background-color: $color-dark-surface-alt;
+    color: #60a5fa;
+    border-left-color: #60a5fa;
   }
 }

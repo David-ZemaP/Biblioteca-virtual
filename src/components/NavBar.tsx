@@ -65,15 +65,35 @@ export default function Navbar() {
           </NavLink>
         </div>
 
-        <button
-          className="theme-toggle"
-          onClick={toggleTheme}
-          aria-label="Toggle theme"
-          title={isDarkMode ? 'Modo Claro' : 'Modo Oscuro'}
-          type="button"
-        >
-          {isDarkMode ? '☀️' : '🌙'}
-        </button>
+        <div className="theme-switch-wrapper">
+          <svg className="theme-icon sun" viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="M4.93 4.93l1.41 1.41"></path>
+            <path d="M17.66 17.66l1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="M4.93 19.07l1.41-1.41"></path>
+            <path d="M17.66 6.34l1.41-1.41"></path>
+          </svg>
+          
+          <label className="theme-switch" htmlFor="theme-checkbox">
+            <input 
+              type="checkbox" 
+              id="theme-checkbox" 
+              checked={isDarkMode} 
+              onChange={toggleTheme} 
+            />
+            <div className="slider round"></div>
+          </label>
+          
+          <svg className="theme-icon moon" viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            <polygon points="18 4 19.5 7.5 23 9 19.5 10.5 18 14 16.5 10.5 13 9 16.5 7.5 18 4"></polygon>
+          </svg>
+        </div>
+
       </div>
     </nav>
   );
