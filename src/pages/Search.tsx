@@ -87,7 +87,14 @@ export function Search() {
 
           {!isLoading && !error && hasSearched && books.length === 0 && (
             <div className="no-results-state">
-              <p>No se encontraron resultados para tu búsqueda.</p>
+              <svg viewBox="0 0 24 24" width="48" height="48" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <line x1="11" y1="8" x2="11" y2="14"></line>
+                <line x1="8" y1="11" x2="14" y2="11"></line>
+              </svg>
+              <p>No encontramos libros que coincidan con tu búsqueda.</p>
+              <span>Intenta con otras palabras clave o ajusta los filtros.</span>
             </div>
           )}
 

@@ -41,7 +41,7 @@
 }
 
 :root.dark-mode .home-hero h1 {
-  background: linear-gradient(135deg, $color-dark-text-strong, #60a5fa);
+  background: $color-dark-text-strong;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
