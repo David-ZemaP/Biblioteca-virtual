@@ -1,0 +1,50 @@
+@use 'variables' as *;
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin card-surface($padding: $space-4, $radius: $radius-lg, $shadow: $shadow-card) {
+  background-color: $color-surface;
+  padding: $padding;
+  border-radius: $radius;
+  box-shadow: $shadow;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+@mixin dark-card-surface($shadow-dark: $shadow-card-dark) {
+  background-color: $color-dark-surface;
+  box-shadow: $shadow-dark;
+}
+
+@mixin button-base($padding-y: $space-3, $padding-x: $space-6, $radius: $radius-md) {
+  display: inline-block;
+  padding: $padding-y $padding-x;
+  border-radius: $radius;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+@mixin responsive($breakpoint) {
+  @media (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin root-dark {
+  :root.dark-mode & {
+    @content;
+  }
+}
+
+@mixin clamp-text($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
