@@ -1,43 +1,124 @@
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { SearchBar, type SearchParams } from '../components/SearchBar';
+import { FilterPanel, type FilterParams } from '../components/FilterPanel';
+import BookCard from '../components/BookCard';
+import Loading from '../components/Loading';
+import ErrorMessage from '../components/ErrorMessage';
+import './Search.scss';
 
 export function Search() {
-	return (
-		<main style={{ padding: '2rem 1rem' }}>
-			<section
-				style={{
-					maxWidth: '900px',
-					margin: '0 auto',
-					padding: '2rem',
-					borderRadius: '16px',
-					background: '#ffffff',
-					boxShadow: '0 10px 30px rgba(0, 0, 0, 0.08)',
-				}}
-			>
-				<p style={{ margin: 0, color: '#6b7280', fontWeight: 600 }}>Buscar</p>
-				<h1 style={{ margin: '0.5rem 0 1rem', fontSize: '2rem', lineHeight: 1.1 }}>
-					La búsqueda todavía está en construcción
-				</h1>
-				<p style={{ margin: '0 0 1.5rem', color: '#4b5563', lineHeight: 1.7 }}>
-					Por ahora esta vista es una base sencilla para que el import funcione correctamente.
-					Puedes seguir navegando a favoritos o al inicio mientras completas la lógica de búsqueda.
-				</p>
-				<Link
-					to="/"
-					style={{
-						display: 'inline-block',
-						padding: '0.75rem 1.25rem',
-						borderRadius: '999px',
-						textDecoration: 'none',
-						background: '#111827',
-						color: '#fff',
-						fontWeight: 600,
-					}}
-				>
-					Volver al inicio
-				</Link>
-			</section>
-		</main>
-	);
+  const [books, setBooks] = useState<any[]>([]);
+  const [filteredBooks, setFilteredBooks] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [filterParams, setFilterParams] = useState<FilterParams>({
+    minYear: '',
+    maxYear: '',
+    language: '',
+    sortBy: ''
+  });
+  const [hasSearched, setHasSearched] = useState(false);
+
+  const handleSearch = async (params: SearchParams) => {
+    setHasSearched(true);
+    let url = 'https://openlibrary.org/search.json?';
+    const queryParts = [];
+
+    if (params.query) queryParts.push(`q=${encodeURIComponent(params.query)}`);
+    if (params.title) queryParts.push(`title=${encodeURIComponent(params.title)}`);
+    if (params.author) queryParts.push(`author=${encodeURIComponent(params.author)}`);
+
+    if (queryParts.length === 0) return;
+
+    url += queryParts.join('&') + '&limit=40';
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('Error al realizar la búsqueda');
+      const data = await response.json();
+      setBooks(data.docs || []);
+    } catch (err) {
+      setError('Ocurrió un error al buscar los libros.');
+      setBooks([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleFilterChange = (filters: FilterParams) => {
+    setFilterParams(filters);
+  };
+
+  useEffect(() => {
+    let result = [...books];
+
+    if (filterParams.minYear) {
+      const min = parseInt(filterParams.minYear, 10);
+      result = result.filter(b => b.first_publish_year >= min);
+    }
+
+    if (filterParams.maxYear) {
+      const max = parseInt(filterParams.maxYear, 10);
+      result = result.filter(b => b.first_publish_year <= max);
+    }
+
+    if (filterParams.language) {
+      result = result.filter(b => b.language && b.language.includes(filterParams.language));
+    }
+
+    if (filterParams.sortBy === 'first_publish_year') {
+      result.sort((a, b) => (b.first_publish_year || 0) - (a.first_publish_year || 0));
+    } else if (filterParams.sortBy === 'edition_count') {
+      result.sort((a, b) => (b.edition_count || 0) - (a.edition_count || 0));
+    }
+
+    setFilteredBooks(result);
+  }, [books, filterParams]);
+
+  return (
+    <main className="search-page-container">
+      <section className="search-header-section">
+        <h1>Buscador Avanzado</h1>
+        <SearchBar onSearch={handleSearch} />
+      </section>
+
+      <div className="search-layout">
+        <aside className="search-sidebar">
+          <FilterPanel onFilterChange={handleFilterChange} />
+        </aside>
+
+        <section className="search-results-section">
+          {isLoading && <Loading isSkeleton={true} />}
+          {error && <ErrorMessage message={error} />}
+
+          {!isLoading && !error && hasSearched && books.length === 0 && (
+            <div className="no-results-state">
+              <p>No se encontraron resultados para tu búsqueda.</p>
+            </div>
+          )}
+
+          {!isLoading && !error && filteredBooks.length > 0 && (
+            <div className="books-grid">
+              {filteredBooks.map((book, index) => (
+                <BookCard
+                  key={index}
+                  id={book.key ? book.key.replace('/works/', '') : String(index)}
+                  title={book.title}
+                  author={book.author_name ? book.author_name[0] : "Autor desconocido"}
+                  coverId={book.cover_i}
+                  year={book.first_publish_year}
+                  editionCount={book.edition_count}
+                />
+              ))}
+            </div>
+          )}
+        </section>
+      </div>
+    </main>
+  );
 }
 
 export default Search;
