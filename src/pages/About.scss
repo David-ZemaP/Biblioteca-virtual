@@ -1,0 +1,193 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.about-container {
+  padding: $space-8 $space-4;
+  background-color: $color-surface-alt;
+  transition: background-color 0.3s ease;
+  min-height: calc(100vh - 70px);
+}
+
+:root.dark-mode .about-container {
+  background-color: $color-dark-bg;
+}
+
+.about-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-header {
+  text-align: center;
+  margin-bottom: $space-12;
+  padding: $space-8 0;
+}
+
+.about-header h1 {
+  font-size: 2.5rem;
+  margin: 0 0 $space-2 0;
+  color: $color-dark-surface;
+  transition: color 0.3s ease;
+}
+
+:root.dark-mode .about-header h1 {
+  color: $color-dark-text-strong;
+}
+
+.about-subtitle {
+  font-size: 1.25rem;
+  color: $color-muted;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+:root.dark-mode .about-subtitle {
+  color: $color-dark-muted;
+}
+
+.about-section {
+  @include card-surface($space-8, $radius-lg, $shadow-card);
+  margin-bottom: $space-6;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+:root.dark-mode .about-section {
+  background-color: $color-dark-surface;
+  box-shadow: $shadow-card-dark;
+}
+
+.about-section h2 {
+  font-size: 1.5rem;
+  margin: 0 0 $space-4 0;
+  color: $color-dark-surface;
+  transition: color 0.3s ease;
+}
+
+:root.dark-mode .about-section h2 {
+  color: $color-dark-text-strong;
+}
+
+.about-section p {
+  margin: 0 0 $space-4 0;
+  line-height: $line-height-copy;
+  color: $color-muted;
+  transition: color 0.3s ease;
+}
+
+:root.dark-mode .about-section p {
+  color: $color-dark-text;
+}
+
+.about-section a {
+  color: $color-accent;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.about-section a:hover {
+  color: $color-accent-dark;
+  text-decoration: underline;
+}
+
+:root.dark-mode .about-section a {
+  color: #60a5fa;
+}
+
+:root.dark-mode .about-section a:hover {
+  color: #93c5fd;
+}
+
+.features-list,
+.tech-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.features-list li,
+.tech-list li {
+  padding: $space-3 0;
+  color: $color-muted;
+  transition: color 0.3s ease;
+  border-bottom: 1px solid $color-border;
+}
+
+:root.dark-mode .features-list li,
+:root.dark-mode .tech-list li {
+  color: $color-dark-text;
+  border-bottom-color: $color-dark-border;
+}
+
+.features-list li:last-child,
+.tech-list li:last-child {
+  border-bottom: none;
+}
+
+.api-info {
+  background-color: #f3f4f6 !important;
+  padding: $space-4 !important;
+  border-left: 4px solid $color-accent;
+  border-radius: $radius-sm;
+  margin: $space-4 0 !important;
+}
+
+:root.dark-mode .api-info {
+  background-color: $color-dark-surface-alt !important;
+  border-left-color: #60a5fa;
+}
+
+.api-info code {
+  background-color: $color-border;
+  padding: 0.2rem 0.4rem;
+  border-radius: 2px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  color: $color-dark-surface;
+  font-size: 0.9rem;
+}
+
+:root.dark-mode .api-info code {
+  background-color: #4b5563;
+  color: $color-dark-text-strong;
+}
+
+.about-footer {
+  text-align: center;
+  margin-top: $space-12;
+  padding: $space-8 0;
+  color: $color-muted;
+  font-style: italic;
+  transition: color 0.3s ease;
+}
+
+:root.dark-mode .about-footer {
+  color: $color-dark-muted;
+}
+
+@media (max-width: 640px) {
+  .about-container {
+    padding: $space-4 $space-2;
+  }
+
+  .about-header {
+    margin-bottom: $space-8;
+    padding: $space-4 0;
+  }
+
+  .about-header h1 {
+    font-size: 2rem;
+  }
+
+  .about-subtitle {
+    font-size: 1rem;
+  }
+
+  .about-section {
+    padding: $space-6;
+    margin-bottom: $space-4;
+  }
+
+  .about-section h2 {
+    font-size: 1.25rem;
+  }
+}
