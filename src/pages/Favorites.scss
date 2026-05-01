@@ -1,0 +1,137 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.favorites-container {
+  min-height: calc(100vh - 70px);
+  padding: $space-8 $space-4;
+  background-color: $color-surface-alt;
+  transition: background-color 0.3s ease;
+}
+
+:root.dark-mode .favorites-container {
+  background-color: $color-dark-bg;
+}
+
+.favorites-header {
+  max-width: $page-width;
+  margin: 0 auto $space-8 auto;
+  text-align: center;
+}
+
+.favorites-header h1 {
+  font-size: 2rem;
+  margin: 0 0 $space-2 0;
+  color: $color-dark-surface;
+  transition: color 0.3s ease;
+}
+
+:root.dark-mode .favorites-header h1 {
+  color: $color-dark-text-strong;
+}
+
+.favorites-count {
+  font-size: 1rem;
+  color: $color-muted;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+:root.dark-mode .favorites-count {
+  color: $color-dark-muted;
+}
+
+.books-grid {
+  max-width: $page-width;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax($grid-min-card, 1fr));
+  gap: $space-8;
+}
+
+.empty-state {
+  max-width: $card-width;
+  margin: $space-12 auto;
+  text-align: center;
+  padding: $space-12 $space-8;
+  @include card-surface($space-12 $space-8, $radius-lg, $shadow-card);
+  transition: background-color 0.3s ease;
+}
+
+:root.dark-mode .empty-state {
+  background-color: $color-dark-surface;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: $space-4;
+}
+
+.empty-state h1 {
+  font-size: 1.75rem;
+  margin: 0 0 $space-4 0;
+  color: $color-dark-surface;
+  transition: color 0.3s ease;
+}
+
+:root.dark-mode .empty-state h1 {
+  color: $color-dark-text-strong;
+}
+
+.empty-state p {
+  font-size: 1rem;
+  color: $color-muted;
+  margin: 0 0 $space-6 0;
+  line-height: $line-height-copy;
+  transition: color 0.3s ease;
+}
+
+:root.dark-mode .empty-state p {
+  color: $color-dark-muted;
+}
+
+.btn {
+  @include button-base($space-3, $space-6, $radius-md);
+}
+
+.btn-primary {
+  background-color: $color-accent;
+  color: $color-surface;
+}
+
+.btn-primary:hover {
+  background-color: $color-accent-dark;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+@media (max-width: 768px) {
+  .favorites-container {
+    padding: $space-4 $space-2;
+  }
+
+  .favorites-header {
+    margin-bottom: $space-6;
+  }
+
+  .favorites-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .books-grid {
+    grid-template-columns: repeat(auto-fill, minmax($grid-min-card-mobile, 1fr));
+    gap: $space-4;
+  }
+
+  .empty-state {
+    margin: $space-8 auto;
+    padding: $space-8 $space-6;
+  }
+
+  .empty-icon {
+    font-size: 3rem;
+  }
+
+  .empty-state h1 {
+    font-size: 1.5rem;
+  }
+}
