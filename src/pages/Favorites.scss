@@ -3,7 +3,7 @@
 
 .favorites-container {
   min-height: calc(100vh - 70px);
-  padding: $space-8 $space-4;
+  padding: $space-10 $space-4;
   background-color: $color-surface-alt;
   transition: background-color 0.3s ease;
 }
@@ -14,23 +14,44 @@
 
 .favorites-header {
   max-width: $page-width;
-  margin: 0 auto $space-8 auto;
+  margin: 0 auto $space-10 auto;
   text-align: center;
 }
 
 .favorites-header h1 {
-  font-size: 2rem;
-  margin: 0 0 $space-2 0;
-  color: $color-dark-surface;
-  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-3;
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0 0 $space-3 0;
+  letter-spacing: -0.5px;
+  background: $color-dark-surface;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 :root.dark-mode .favorites-header h1 {
-  color: $color-dark-text-strong;
+  background: $color-dark-text-strong;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.title-icon {
+  color: $color-danger;
+  -webkit-text-fill-color: $color-danger;
+}
+
+:root.dark-mode .title-icon {
+  color: #f87171;
+  -webkit-text-fill-color: #f87171;
 }
 
 .favorites-count {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: $color-muted;
   margin: 0;
   transition: color 0.3s ease;
@@ -49,26 +70,37 @@
 }
 
 .empty-state {
-  max-width: $card-width;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 600px;
   margin: $space-12 auto;
   text-align: center;
   padding: $space-12 $space-8;
-  @include card-surface($space-12 $space-8, $radius-lg, $shadow-card);
-  transition: background-color 0.3s ease;
+  background-color: transparent;
+  border: 2px dashed $color-border;
+  border-radius: $radius-lg;
+  transition: all 0.3s ease;
 }
 
 :root.dark-mode .empty-state {
-  background-color: $color-dark-surface;
+  border-color: $color-dark-border;
 }
 
 .empty-icon {
-  font-size: 4rem;
-  margin-bottom: $space-4;
+  color: #9ca3af;
+  margin-bottom: $space-5;
+}
+
+:root.dark-mode .empty-icon {
+  color: $color-dark-border;
 }
 
 .empty-state h1 {
   font-size: 1.75rem;
-  margin: 0 0 $space-4 0;
+  font-weight: 700;
+  margin: 0 0 $space-3 0;
   color: $color-dark-surface;
   transition: color 0.3s ease;
 }
@@ -78,10 +110,10 @@
 }
 
 .empty-state p {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: $color-muted;
-  margin: 0 0 $space-6 0;
-  line-height: $line-height-copy;
+  margin: 0 0 $space-8 0;
+  line-height: $line-height-relaxed;
   transition: color 0.3s ease;
 }
 
@@ -90,31 +122,37 @@
 }
 
 .btn {
-  @include button-base($space-3, $space-6, $radius-md);
+  @include button-base($space-3, $space-8, $radius-pill);
+  font-weight: 600;
+  font-size: 1.05rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-primary {
   background-color: $color-accent;
-  color: $color-surface;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
 }
 
 .btn-primary:hover {
   background-color: $color-accent-dark;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
 }
 
 @media (max-width: 768px) {
   .favorites-container {
-    padding: $space-4 $space-2;
+    padding: $space-6 $space-4;
   }
 
   .favorites-header {
-    margin-bottom: $space-6;
+    margin-bottom: $space-8;
   }
 
   .favorites-header h1 {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 
   .books-grid {
@@ -123,15 +161,23 @@
   }
 
   .empty-state {
-    margin: $space-8 auto;
-    padding: $space-8 $space-6;
+    margin: $space-6 auto;
+    padding: $space-8 $space-4;
+    border-width: 1px;
   }
 
   .empty-icon {
-    font-size: 3rem;
+    width: 48px;
+    height: 48px;
+    margin-bottom: $space-4;
   }
 
   .empty-state h1 {
     font-size: 1.5rem;
+  }
+
+  .empty-state p {
+    font-size: 1rem;
+    margin-bottom: $space-6;
   }
 }
