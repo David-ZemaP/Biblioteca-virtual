@@ -10,6 +10,7 @@ interface BookCardProps {
   coverId?: number;
   year?: number;
   description?: string;
+  editionCount?: number;
 }
 
 export default function BookCard({
@@ -19,6 +20,7 @@ export default function BookCard({
   coverId,
   year,
   description,
+  editionCount
 }: BookCardProps) {
   const [isFav, setIsFav] = useState(isFavorite(id));
 
@@ -36,6 +38,7 @@ export default function BookCard({
       cover_id: coverId,
       first_publish_year: year,
       description,
+      edition_count: editionCount
     };
 
     if (isFav) {
@@ -82,6 +85,8 @@ export default function BookCard({
           )}
 
           {year && <p className="book-card-year">{year}</p>}
+
+          {editionCount && <p className="book-card-editions">Ediciones: {editionCount}</p>}
 
           {description && (
             <p className="book-card-description">

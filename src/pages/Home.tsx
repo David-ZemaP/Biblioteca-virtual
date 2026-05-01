@@ -1,57 +1,75 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import BookCard from '../components/BookCard';
+import Loading from '../components/Loading';
+import ErrorMessage from '../components/ErrorMessage';
+import { getPopularBooks } from '../services/openLibraryService';
+import './Home.scss';
 
 export function Home() {
-	return (
-		<main style={{ padding: '2rem 1rem' }}>
-			<section
-				style={{
-					maxWidth: '900px',
-					margin: '0 auto',
-					padding: '2rem',
-					borderRadius: '16px',
-					background: '#ffffff',
-					boxShadow: '0 10px 30px rgba(0, 0, 0, 0.08)',
-				}}
-			>
-				<p style={{ margin: 0, color: '#6b7280', fontWeight: 600 }}>Biblioteca Inteligente</p>
-				<h1 style={{ margin: '0.5rem 0 1rem', fontSize: '2.25rem', lineHeight: 1.1 }}>
-					Encuentra libros y guarda tus favoritos
-				</h1>
-				<p style={{ margin: '0 0 1.5rem', color: '#4b5563', lineHeight: 1.7 }}>
-					Esta es una vista mínima para que la navegación funcione mientras completas el buscador.
-					Desde aquí puedes ir a explorar libros, revisar favoritos o leer más sobre el proyecto.
-				</p>
-				<div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-					<Link
-						to="/buscar"
-						style={{
-							padding: '0.75rem 1.25rem',
-							borderRadius: '999px',
-							textDecoration: 'none',
-							background: '#2563eb',
-							color: '#fff',
-							fontWeight: 600,
-						}}
-					>
-						Ir a buscar
-					</Link>
-					<Link
-						to="/favoritos"
-						style={{
-							padding: '0.75rem 1.25rem',
-							borderRadius: '999px',
-							textDecoration: 'none',
-							background: '#e5e7eb',
-							color: '#111827',
-							fontWeight: 600,
-						}}
-					>
-						Ver favoritos
-					</Link>
-				</div>
-			</section>
-		</main>
-	);
+  const [books, setBooks] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchInitialBooks = async () => {
+      try {
+        const data = await getPopularBooks();
+        setBooks(data.docs);
+      } catch (err) {
+        setError('No se pudieron cargar los libros populares.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchInitialBooks();
+  }, []);
+
+  return (
+    <main className="home-container">
+      <section className="home-hero">
+        <p className="subtitle">Biblioteca Inteligente</p>
+        <h1>Encuentra libros y guarda tus favoritos</h1>
+        <p className="description">
+          Explora libros populares o utiliza nuestra búsqueda avanzada para encontrar exactamente lo que necesitas en la API de Open Library.
+        </p>
+        <div className="action-buttons">
+          <Link to="/buscar" className="btn-primary">
+            Ir a buscar
+          </Link>
+          <Link to="/favoritos" className="btn-secondary">
+            Ver favoritos
+          </Link>
+        </div>
+      </section>
+
+      <section className="books-section">
+        <div className="section-header">
+          <h2>Libros Populares: Programming</h2>
+        </div>
+        
+        {isLoading && <Loading isSkeleton={true} />}
+        {error && <ErrorMessage message={error} />}
+        
+        {!isLoading && !error && (
+          <div className="books-grid">
+            {books.map((book, index) => (
+              <BookCard 
+                key={index} 
+                id={book.key ? book.key.replace('/works/', '') : String(index)} 
+                title={book.title}
+                author={book.author_name ? book.author_name[0] : "Autor desconocido"}
+                coverId={book.cover_i}
+                year={book.first_publish_year}
+                editionCount={book.edition_count}
+              />
+            ))}
+          </div>
+        )}
+      </section>
+    </main>
+  );
 }
 
 export default Home;
