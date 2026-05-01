@@ -1,0 +1,339 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.book-detail-container {
+  min-height: calc(100vh - 70px);
+  padding: $space-8 $space-4;
+  background-color: $color-surface-alt;
+  transition: background-color 0.3s ease;
+}
+
+:root.dark-mode .book-detail-container {
+  background-color: $color-dark-bg;
+}
+
+.btn-back {
+  margin-bottom: $space-8;
+}
+
+.book-detail-content {
+  max-width: $detail-width;
+  margin: 0 auto;
+}
+
+.book-detail-grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: $space-12;
+  background-color: $color-surface;
+  padding: $space-8;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+  transition: background-color 0.3s ease;
+}
+
+:root.dark-mode .book-detail-grid {
+  background-color: $color-dark-surface;
+  box-shadow: $shadow-card-dark;
+}
+
+.book-cover-section {
+  display: flex;
+  justify-content: center;
+}
+
+.book-cover-image {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  border-radius: $radius-lg;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.book-cover-image:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.book-cover-placeholder {
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 2 / 3;
+  background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+  border-radius: $radius-lg;
+  @include flex-center;
+  font-size: 4rem;
+}
+
+:root.dark-mode .book-cover-placeholder {
+  background: linear-gradient(135deg, $color-dark-surface-alt 0%, #4b5563 100%);
+}
+
+.book-info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.book-header {
+  margin: 0;
+}
+
+.book-title {
+  font-size: 2rem;
+  margin: 0 0 $space-2 0;
+  color: $color-dark-surface;
+  transition: color 0.3s ease;
+  line-height: 1.2;
+}
+
+:root.dark-mode .book-title {
+  color: $color-dark-text-strong;
+}
+
+.book-author {
+  font-size: 1.1rem;
+  color: $color-muted;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+:root.dark-mode .book-author {
+  color: $color-dark-muted;
+}
+
+.book-meta {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-3 0;
+  border-bottom: 1px solid $color-border;
+}
+
+:root.dark-mode .book-meta {
+  border-bottom-color: $color-dark-border;
+}
+
+.meta-label {
+  font-weight: 600;
+  color: $color-muted;
+  transition: color 0.3s ease;
+}
+
+:root.dark-mode .meta-label {
+  color: $color-dark-text;
+}
+
+.meta-value {
+  color: $color-muted;
+  transition: color 0.3s ease;
+}
+
+:root.dark-mode .meta-value {
+  color: $color-dark-muted;
+}
+
+.book-description {
+  border-top: 1px solid $color-border;
+  padding-top: $space-4;
+}
+
+:root.dark-mode .book-description {
+  border-top-color: $color-dark-border;
+}
+
+.book-description h2 {
+  font-size: 1.25rem;
+  margin: 0 0 $space-3 0;
+  color: $color-dark-surface;
+  transition: color 0.3s ease;
+}
+
+:root.dark-mode .book-description h2 {
+  color: $color-dark-text-strong;
+}
+
+.book-description p {
+  margin: 0;
+  line-height: 1.7;
+  color: $color-muted;
+  transition: color 0.3s ease;
+}
+
+:root.dark-mode .book-description p {
+  color: $color-dark-text;
+}
+
+.book-subjects,
+.book-places {
+  border-top: 1px solid $color-border;
+  padding-top: $space-4;
+}
+
+:root.dark-mode .book-subjects,
+:root.dark-mode .book-places {
+  border-top-color: $color-dark-border;
+}
+
+.book-subjects h2,
+.book-places h2 {
+  font-size: 1.25rem;
+  margin: 0 0 $space-3 0;
+  color: $color-dark-surface;
+  transition: color 0.3s ease;
+}
+
+:root.dark-mode .book-subjects h2,
+:root.dark-mode .book-places h2 {
+  color: $color-dark-text-strong;
+}
+
+.subjects-list,
+.places-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+}
+
+.subject-tag,
+.place-tag {
+  display: inline-block;
+  padding: $space-2 $space-3;
+  background-color: #f0f4ff;
+  color: $color-accent-dark;
+  border-radius: $radius-pill;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.subject-tag:hover,
+.place-tag:hover {
+  background-color: #e0e7ff;
+  transform: translateY(-2px);
+}
+
+:root.dark-mode .subject-tag,
+:root.dark-mode .place-tag {
+  background-color: $color-dark-surface-alt;
+  color: #60a5fa;
+}
+
+:root.dark-mode .subject-tag:hover,
+:root.dark-mode .place-tag:hover {
+  background-color: #4b5563;
+}
+
+.book-actions {
+  display: flex;
+  gap: $space-4;
+  padding-top: $space-4;
+  border-top: 1px solid $color-border;
+}
+
+:root.dark-mode .book-actions {
+  border-top-color: $color-dark-border;
+}
+
+.btn {
+  @include button-base($space-3, $space-6, $radius-md);
+  font-weight: 500;
+}
+
+.btn-secondary {
+  background-color: $color-border;
+  color: $color-dark-surface;
+}
+
+.btn-secondary:hover {
+  background-color: #d1d5db;
+  transform: translateY(-2px);
+}
+
+:root.dark-mode .btn-secondary {
+  background-color: $color-dark-surface-alt;
+  color: $color-dark-text-strong;
+}
+
+:root.dark-mode .btn-secondary:hover {
+  background-color: #4b5563;
+}
+
+.btn-favorite {
+  background-color: $color-danger-soft;
+  color: #7f1d1d;
+  flex: 1;
+}
+
+.btn-favorite:hover {
+  background-color: #fca5a5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+}
+
+.btn-favorite.active {
+  background-color: #fca5a5;
+  color: $color-danger;
+}
+
+:root.dark-mode .btn-favorite {
+  background-color: #7f1d1d;
+  color: $color-danger-soft;
+}
+
+:root.dark-mode .btn-favorite:hover,
+:root.dark-mode .btn-favorite.active {
+  background-color: #991b1b;
+}
+
+@media (max-width: 768px) {
+  .book-detail-grid {
+    grid-template-columns: 1fr;
+    gap: $space-8;
+    padding: $space-6;
+  }
+
+  .book-cover-section {
+    max-width: 250px;
+    margin: 0 auto;
+  }
+
+  .book-title {
+    font-size: 1.5rem;
+  }
+
+  .book-detail-container {
+    padding: $space-4 $space-2;
+  }
+}
+
+@media (max-width: 480px) {
+  .book-detail-grid {
+    padding: $space-4;
+    gap: $space-6;
+  }
+
+  .book-cover-section {
+    max-width: 200px;
+  }
+
+  .book-cover-placeholder {
+    font-size: 3rem;
+  }
+
+  .book-title {
+    font-size: 1.25rem;
+  }
+
+  .book-author {
+    font-size: 1rem;
+  }
+
+  .book-actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
